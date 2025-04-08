@@ -1,0 +1,451 @@
+    body{
+        margin: 0px;
+        padding: 0px;
+    }
+	
+	
+	
+    div#divarquivo{
+        margin: 16px;
+        border: 2px solid #ccc;
+		box-shadow: 5px 5px 5px #888;
+    }
+    #tudo{
+        display: none;
+    }
+.t{
+	width: calc(99.8% /2);
+	float: left;
+	margin-bottom: 5px;
+}
+.t td {
+    border-radius: 4px;
+    border: rgb(0, 0, 0)
+
+	padding: 10px;
+	white-space: nowrap; /* Evitar quebrar a linha */
+	overflow: hidden;
+	text-overflow: ellipsis; /* Exibir "..." para texto cortado */
+	max-width: 100px; /* Largura máxima da célula */
+	cursor: pointer; /* Adicionar um cursor de mão */
+	
+}
+
+    .c1{
+        padding-left: 2px;
+        text-align: left;
+        border: solid 1px #d6c39e;
+        background-color: #fff;
+        width: 40px;
+        }
+    .c2{
+        padding-rigth: 2px;
+        text-align: right;
+        border: solid 1px #d6c39e;
+        background-color: #fff;
+        width: 80px;
+        }
+
+.vencimento{
+    float: left;
+    padding: 4px;
+}
+.danfe{
+    width: 105px;
+    height: 51px;
+    border: solid 1px #d6c39e;
+    margin: 4px;
+}
+.danfe h5{
+    text-align: end;
+}
+.num{
+    text-align: end;
+}
+
+
+
+
+
+.GeralXslt {
+	position: relative;
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: transparent;
+    padding: 1px;
+
+}
+
+
+
+
+
+
+.box {
+    width: 99.7%;
+    border: 1px solid #c7a460;
+    background-color: #f4edd5;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+	
+
+}
+.divbox {
+	position: relative;
+    width: 99.7%;
+    border: 1px solid #c7a460;
+    background-color: #d0daced5;
+	overflow: auto;
+    
+}
+
+.cx1{
+	/*height: 70px;*/
+}
+
+.cx2{
+	height: 65px;
+	display: flex;
+    align-items: center;
+}
+
+.cx3{
+
+}
+
+#frete{
+    display: none;
+}
+#tpNF{
+    display: none;
+}
+
+    .box label {
+        display: block;
+        /*min-height: 19px;
+    height: auto;*/
+        text-transform: none;
+        vertical-align: middle;
+        /*padding: 4px 0px 0px 6px;*/
+        font-family: Trebuchet MS, Arial, Verdana, Helvetica, sans-serif;
+        font-size: 11px;
+        min-height: 15px;
+        font-weight: normal;
+        color: #6f5e39;
+        text-align: left;
+        padding: 2px;
+    }
+
+    .box span {
+        height: auto !important;
+        height: 15px;
+        min-height: 15px;
+        display: block;
+        background-position: center;
+        border: solid 1px #d6c39e;
+        background-color: #fbfbf5;
+        padding: 2px 2px 2px 6px;
+    }
+/*
+    .box td {
+        vertical-align: top;
+    } alinha o texto na parte de cima
+*/
+tr.col-10 td {
+    width: 10%;
+}
+
+tr.col-5 td {
+    width: 20%;
+}
+
+tr.col-4 td {
+    width: 25%;
+}
+
+tr.col-3 td {
+    width: 33.333%;
+}
+
+tr.col-2 td {
+    width: 50%;
+}
+
+.notprint {
+    overflow: hidden;
+    display: none;
+}
+
+
+
+div.tbl-aut-uso {
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+
+    div.tbl-aut-uso table {
+        background-color: White;
+        padding-top: 5px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
+        div.tbl-aut-uso table td {
+            font-family: Verdana, Arial, Helvetica;
+            font-size: 11px;
+			padding-left: 2px;
+			padding-right: 2px;
+        }
+
+
+
+table.table-row th{
+	padding: 2px;
+}
+
+span#tipo-ambiente {
+    border: 1px solid #880;
+    margin-left: 5px;
+    margin-top: 5px;
+    font-weight: bolder;
+    background-color: #ffc;
+    height: 20px;
+}
+
+    span#tipo-ambiente img {
+        margin-top: 2px;
+    }
+
+
+
+
+
+/* Controle visualização extra */
+
+
+
+
+
+.toggle td, th {
+        border: solid 1px #d6c39e;
+        background-color: #fbfbf5;
+}
+
+
+.desc {
+    width: 40%;
+}
+
+.ref {
+	padding: 2px;
+    width: 95px;
+}
+
+.nitem{
+	text-align: center;
+    width: 15px;
+}
+
+
+input#idFile {
+    width: 98%;
+}
+
+
+.aligned-input {
+margin: 4px; /* Adicione margem ao redor do input */
+padding: 4px; /* Adicione preenchimento interno ao input */
+
+}
+
+ #totais th{
+    height: 40px;
+
+}
+
+#totaisNfs td{
+    text-align: center;
+    color: rgb(46, 12, 125);
+    height: 30px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
+body{
+  font-family:sans-serif;  
+}
+
+.sombra{
+  width:80%;
+  margin:0 auto;
+  border:0;
+  box-shadow: 0 5px 30px darkgrey;
+  border-spacing: 0;
+}
+
+.sombra thead th{
+  font-weight: bold;
+  background-color: black;
+  color:white;
+  
+  padding:5px 10px;
+}
+
+.sombra tr td:last-child{
+  text-align: right;
+}
+
+/**Cores**/
+
+.sombra tr:nth-child(odd){
+  background-color: rgb(197, 89, 89);
+}
+
+/**Cor quando passar por cima**/
+.sombra tr:hover td{
+  background-color: #feffb7;
+}
+
+/**Cor quando selecionado**/
+#tbody tr.selecionado td{
+  background-color: #aff7ff;
+}
+
+
+
+button#visualizarDados{
+  background-color: white;
+  border: 1px solid black;
+  width:50%;
+  margin: 10px auto;
+  padding:10px 0;
+  display: block;
+  color: black;
+}
+
+
+
+.coluna-oculta {
+	display: none;
+}
+
+.mostrar {
+	position: absolute;
+	right: 0px;
+	margin: 10px;
+	
+	
+	
+	
+	background-color: #007bff; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    padding: 10px 20px; /* Preenchimento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer; /* Cursor de mão ao passar o mouse */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    transition: background-color 0.2s; /* Transição suave de cor de fundo*/
+}
+
+.mostrar:hover {
+    background-color: #0056b3; /* Mudar a cor de fundo ao passar o mouse */
+}
+
+
+
+#cabeca{
+    width: 100%;
+    height: 234px;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url('../img/cabeca.png')
+    align-items: center;
+}
+div.borda{
+
+    border: 1px solid rgb(54, 0, 248);
+    border-radius: 4px;
+}
+#cabeca div{
+    float: left;
+}
+
+.emitente{
+    width: 560px;
+    height: calc(160px / 1.5);
+    text-align: center;
+    vertical-align: middle;
+   
+}
+.emitente table{
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+.danfe{
+    width: 230px;
+    height: calc(160px / 1.5);
+}
+
+.chave{
+    width: 560px;
+    height: calc(79px / 1.5);
+}
+.auto{
+    width: 560px;
+    height: calc(79px / 1.5);
+}
+.natureza{
+    width: 792px;
+    height: calc(33px / 1.5);
+}
+.protocolo{
+    width: 560px;
+    height: calc(33px / 1.5);
+}
+.ie{
+    width: 450px;
+    height: calc(33px / 1.5);
+}
+.ies{
+    width: 450px;
+    height: calc(33px / 1.5);
+}
+.cnpj-emit{
+    width: 450px;
+    height: calc(33px / 1.5);
+}
+
+
+#alerta {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f3f3f3;
+	background-color: rgba(211,211,211, 0.7);
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	z-index: 9999;
+}
+
+.oculto {
+    display: none;
+}
+
+.fechar {
+    float: right;
+    cursor: pointer;
+	font-size: 32px;
+	color: red;	
+}
+.fechar:hover {
+	color: blue;
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="../img/radio.ico" type="image/x-icon">
+    <title>Player de Rádio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        audio {
+            width: 400px;
+            margin-right: 20px;
+        }
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <audio id="radioPlayer" controls autoplay>
+            <source id="radioSource" src="https://stm01.virtualcast.com.br:8028/massacampinas" type="audio/mpeg">
+            Seu navegador não suporta HTML5.
+        </audio>
+        <select id="radioSelector">
+            <option value="#">Escolha - Opção</option>
+            <option value="https://stm01.virtualcast.com.br:8028/massacampinas">Massa FM</option>
+            <option value="https://8577.brasilstream.com.br/stream">Rádio Laser</option>
+            <option value="https://9794.brasilstream.com.br/stream">Cidade</option>
+            <option value="https://stm11.xcast.com.br:11276/stream">Nativa</option>
+            <option value="https://stm2.xcast.com.br:11264/stream">Band Campinas</option>
+        </select>
+    </div>
+
+    <script>
+	document.addEventListener('DOMContentLoaded', function () {
+    const radioPlayer = document.getElementById('radioPlayer');
+    radioPlayer.volume = 0.3; // Define o volume inicial como 30%
+	});
+        const radioPlayer = document.getElementById('radioPlayer');
+        const radioSource = document.getElementById('radioSource');
+        const radioSelector = document.getElementById('radioSelector');
+
+        // Atualiza o stream ao mudar a seleção
+        radioSelector.addEventListener('change', function () {
+            const selectedValue = this.value;
+
+            if (selectedValue && selectedValue !== "#") {
+                radioSource.src = selectedValue; // Altera a URL da rádio
+                radioPlayer.load(); // Recarrega o player
+                radioPlayer.play(); // Inicia o áudio
+            }
+        });
+		
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const player = document.getElementById('player');
+        const startButton = document.getElementById('start');
+        const replayButton = document.getElementById('replay');
+
+        let audioBuffer = [];
+        let isRecording = false;
+        let streamSource;
+
+        // Inicia o rádio
+        async function startRadio() {
+            const stream = await fetchStream("https://stm01.virtualcast.com.br:8028/massacampinas");
+            const sourceNode = audioContext.createMediaStreamSource(stream);
+            const processor = audioContext.createScriptProcessor(4096, 1, 1);
+
+            sourceNode.connect(processor);
+            processor.connect(audioContext.destination);
+
+            processor.onaudioprocess = (e) => {
+                if (isRecording) {
+                    const channelData = e.inputBuffer.getChannelData(0);
+                    audioBuffer.push(new Float32Array(channelData));
+                    // Limite o tamanho do buffer para, por exemplo, 10 minutos
+                    if (audioBuffer.length > (audioContext.sampleRate * 600 / 4096)) {
+                        audioBuffer.shift();
+                    }
+                }
+            };
+
+            isRecording = true;
+        }
+
+        // Função para buscar o stream
+        async function fetchStream(url) {
+            const response = await fetch(url);
+            const audioBlob = await response.blob();
+            return new MediaStream([audioBlob]);
+        }
+
+        // Reproduz do início
+        function replayRadio() {
+            const audioData = audioBuffer.flat(); // Une todas as partes do buffer
+            const audioBufferSource = audioContext.createBufferSource();
+            const buffer = audioContext.createBuffer(1, audioData.length, audioContext.sampleRate);
+
+            buffer.copyToChannel(new Float32Array(audioData), 0, 0);
+            audioBufferSource.buffer = buffer;
+            audioBufferSource.connect(audioContext.destination);
+            audioBufferSource.start();
+        }
+
+        // Eventos dos botões
+        startButton.addEventListener('click', startRadio);
+        replayButton.addEventListener('click', replayRadio);
+
+    </script>
+</body>
+</html>

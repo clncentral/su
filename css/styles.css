@@ -1,0 +1,44 @@
+#divarquivo2 {
+  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 50px;
+  border-radius: 10px; /* Borda arredondada */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Sombra bonita */
+}
+
+.container {
+  width: 100%;
+  height: 65vh;
+  display: flex;
+  flex-direction: column; /* Para empilhar verticalmente o título e a lista de tópicos */
+  align-items: center;
+}
+
+.column {
+  width: auto; /* Define a largura para que quatro colunas caibam sem quebrar linhas */
+  padding: 10px; /* Adiciona um espaçamento interno para separar as colunas */
+  border-left: 5px solid #ddd; /* Cor da linha */
+  padding-left: 10px; /* Espaçamento entre a linha e o conteúdo */
+  box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.5);
+}
+
+.topicos {
+  width: 100%; /* Alteração para ocupar toda a largura disponível */
+  display: flex; /* Adição da propriedade para alinhar as colunas lado a lado */
+  flex-wrap: wrap; /* Permite que as colunas quebrem para a linha seguinte se não couberem em uma única linha */
+}
+
+.topico {
+  margin-bottom: 10px;
+}
+
+.novo {
+  color: red;
+  font-size: 16px;
+}
+
+.velho {
+  color: black;
+  font-size: 12px;
+}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consulta de CNPJ</title>
+  <link rel="icon" href="../img/crfxml.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/historia.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      text-align: center;
+      display: block;
+      margin-bottom: 10px;
+      color: #555;
+    }
+    input[type="text"] {
+      width: 30%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      align-items: center;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .result-section strong {
+      color: #333;
+    }
+    .result-section p {
+      margin: 5px 0;
+      color: #555;
+    }
+    .indent {
+      margin-left: 20px;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
+    }
+  </style>
+  <script>
+    function limparCNPJ(cnpj) {
+      return cnpj.replace(/[^\d]/g, '');
+    }
+
+    async function consultarCEP(cep) {
+      var url = "https://viacep.com.br/ws/" + cep + "/json/";
+      try {
+        let response = await fetch(url);
+        let responseCode = response.status;
+        let resultDiv = document.getElementById("cepResult");
+
+        if (responseCode == 200) {
+          let responseData = await response.json();
+          resultDiv.innerHTML = `
+            <div class="result-section">
+              <p><strong>CEP:</strong> ${responseData.cep}</p>
+              <p><strong>Logradouro:</strong> ${responseData.logradouro}</p>
+              <p><strong>Complemento:</strong> ${responseData.complemento}</p>
+              <p><strong>Bairro:</strong> ${responseData.bairro}</p>
+              <p><strong>Localidade:</strong> ${responseData.localidade}</p>
+              <p><strong>UF:</strong> ${responseData.uf}</p>
+              <p><strong>IBGE:</strong> ${responseData.ibge}</p>
+            </div>
+          `;
+        } else {
+          resultDiv.innerHTML = `<p class="indent">Erro ao consultar o CEP: ${responseCode}</p>`;
+        }
+      } catch (error) {
+        document.getElementById("cepResult").innerHTML = `<p class="indent">Erro: ${error.message}</p>`;
+      }
+    }
+
+    async function consultarCNPJ() {
+      var cnpjInput = document.getElementById("cnpjInput").value;
+      var cnpj = limparCNPJ(cnpjInput); // Limpar o CNPJ antes de usar
+      var url = "https://publica.cnpj.ws/cnpj/" + cnpj;
+
+      try {
+        let response = await fetch(url);
+        let responseCode = response.status;
+        let resultDiv = document.getElementById("result");
+
+        if (responseCode == 200) {
+          let responseData = await response.json();
+          let estabelecimento = responseData.estabelecimento;
+          let outros = responseData;
+          let simples = responseData.simples || {}; // Certifique-se de que simples está definido
+          let inscricoesEstaduais = estabelecimento.inscricoes_estaduais;
+
+          // Simples Nacional e MEI
+          let simplesCor = simples.simples === "Sim" ? "green" : "red";
+          let meiCor = simples.mei === "Sim" ? "green" : "red";
+
+          let simplesStatus = `
+            <p><strong>Simples Nacional:</strong> 
+              <span style="color:${simplesCor}; font-weight: bold;">
+                ${simples.simples === "Sim" ? "Sim" : "Não"}
+              </span>
+            </p>
+            <p><strong>MEI:</strong> 
+              <span style="color:${meiCor}; font-weight: bold;">
+                ${simples.mei === "Sim" ? "Sim" : "Não"}
+              </span>
+            </p>
+          `;
+
+          // Natureza Jurídica
+          let naturezaJuridica = `
+            <p><strong>Natureza Jurídica:</strong> ${outros.natureza_juridica.id} - ${outros.natureza_juridica.descricao}</p>
+          `;
+
+          // Inscrições Estaduais
+          let inscricoesStr = inscricoesEstaduais.map(ie => {
+            let status = ie.ativo === true ? "Ativo" : "Inativo";
+            let corStatus = ie.ativo === true ? "green" : "red";
+            return `<strong>IE:</strong> ${ie.inscricao_estadual} 
+                    \t<strong>UF:</strong> ${ie.estado.sigla} 
+                    \t<strong>Status:</strong> <span style="color: ${corStatus};">${status}</span><br>`;
+          }).join('');
+
+          resultDiv.innerHTML = `
+            <div class="result-section">
+              <p><strong>Razão Social:</strong> ${outros.razao_social}</p>
+              <p><strong>CNPJ:</strong> ${estabelecimento.cnpj} 
+                <span style="color: ${estabelecimento.situacao_cadastral === "Ativa" ? "green" : "red"};">
+                  ${estabelecimento.situacao_cadastral}
+                </span>
+              </p>
+              <p><strong>Atividade Eco Principal:</strong> ${estabelecimento.atividade_principal.id} - ${estabelecimento.atividade_principal.descricao}</p>
+              ${naturezaJuridica}
+              ${simplesStatus}
+              <p><strong>Inscrições Estaduais:</strong></p>
+              <p class="indent">${inscricoesStr || '<span style="color: red; font-weight: bold;">ISENTO</span>'}</p>
+
+            </div>
+            <div class="result-section">
+              <p><strong>Endereço:</strong></p>
+              <p class="indent"><strong>Estado:</strong> ${estabelecimento.estado.nome}</p>
+              <p class="indent"><strong>Cidade:</strong> ${estabelecimento.cidade.nome} \tCód. IBGE: ${estabelecimento.cidade.ibge_id}</p>
+              <p class="indent"><strong>Bairro:</strong> ${estabelecimento.bairro}</p>
+              <p class="indent"><strong>Logradouro:</strong> ${estabelecimento.tipo_logradouro} \t<strong>:</strong> ${estabelecimento.logradouro}</p>
+              <p class="indent"><strong>Número:</strong> ${estabelecimento.numero} \t<strong>Complemento:</strong> ${estabelecimento.complemento}</p>
+              <p class="indent"><strong>CEP:</strong> ${estabelecimento.cep}</p>
+            </div>
+            <div class="result-section">
+              <p><strong>Contatos:</strong></p>
+              <p class="indent"><strong>Telefone 1:</strong> ${estabelecimento.ddd1 ? `(${estabelecimento.ddd1}) ` : ""}${estabelecimento.telefone1 || "N/A"}</p>
+              <p class="indent"><strong>Telefone 2:</strong> ${estabelecimento.ddd2 ? `(${estabelecimento.ddd2}) ` : ""}${estabelecimento.telefone2 || "N/A"}</p>
+              <p class="indent"><strong>E-mail:</strong> ${estabelecimento.email || "N/A"}</p>
+            </div>
+          `;
+
+          // Consultar o CEP do estabelecimento
+          consultarCEP(estabelecimento.cep);
+
+        } else if (responseCode == 400 || responseCode == 404) {
+          resultDiv.innerHTML = '<p class="indent">CNPJ não encontrado ou inválido.</p>';
+        } else {
+          resultDiv.innerHTML = `<p class="indent">Erro: ${responseCode}</p>`;
+        }
+      } catch (error) {
+        document.getElementById("result").innerHTML = `<p class="indent">Erro: ${error.message}</p>`;
+      }
+    }
+
+    // Adicionar evento para pressionar Enter
+    document.addEventListener("DOMContentLoaded", function() {
+      var cnpjInput = document.getElementById("cnpjInput");
+      cnpjInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+          consultarCNPJ();
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>Consulta de CNPJ</h1>
+    <label for="cnpjInput"><input type="text" id="cnpjInput" name="cnpjInput" placeholder="Digite o CNPJ"></label>
+    <div id="result"></div>
+    <hr>
+    <h1>Validação de CEP</h1>
+    <div id="cepResult"></div>
+  </div>
+</body>
+</html>
