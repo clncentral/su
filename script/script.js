@@ -208,60 +208,10 @@ function carregarXML(xml) {
         }else{
           tpNF = 'Saida'
         }
-        var razao = $(this).find("dest>xNome").text()
-        var loja
-        switch(String($(this).find("dest>CNPJ").text()) & String($(this).find("dest>IE").text())){
-            case '05789313000194' & '244762219116':
-            loja = 'Central'
-            break
-            case '05789313000607' & '276000625118':
-            loja = 'Loja 02'
-            break
-            case '05789313000518' & '244121997119':
-            loja = 'Loja 03'
-            break
-            case '05789313000437' & '587055882112':
-            loja = 'Loja 06'
-            break
-            case'05789313000356' & '535114683110':
-            loja = 'Loja 07'
-            break
-            case'05789313000780' & '244341560119':
-            loja = 'Loja 08'
-            break
-            case '05789313000860' & '417146805119':
-            loja = 'Loja 09'
-            break
-            case'05789313000275' & '587144653116':
-            loja = 'Loja 10'
-            break
-            case'05789313001247' & '671185036117':
-            loja = 'CD'
-            break
-            case'05789313001328' & '122100090119':
-            loja = 'Exn Aquí'
-            break
-            default:
-            loja = "ERRO: CNPJ/IE"
-            
-            break
-        }
-	var dataemissao =  new Date($(this).find("ide>dhEmi").text())
-	var datasaida = new Date($(this).find("ide>dhSaiEnt").text())
-	var emiss =  dataemissao.toLocaleDateString()
-	var saida =  datasaida.toLocaleDateString()
-        var enx = ""
-        enx += "<tr>"
-        enx += "<td><label>Nro NF</label/>"+$(this).find("ide>nNF").text()+"</td>"
-        if(tpNF == 'Entrada'){
-          enx += "<td><label>Tipo</label/>"+tpNF+"</td>"
-        }
-        if(loja == "ERRO: CNPJ/IE"){
-		enx += "<td id='rz'><label>Razão</label/>"+razao+"</td>"
-	}else{
-		enx += "<td id='lj'><label>Loja</label/>"+loja+"</td>"
+        var razao = $(this).find("dest>xNome").text();
 
-	}
+        
+	enx += "<td id='lj'><label>Loja</label/>"+razao+"</td>"
         enx += "<td><label>Município</label>"+$(this).find("enderDest>xMun").text()+", "+$(this).find("enderDest>UF").text()+" - Cód.: "+$(this).find("enderDest>cMun").text()+"</td>"
         enx += "<td colspan='2'><label>Endereço</label>"+$(this).find("enderDest>xLgr").text()+", "+$(this).find("enderDest>nro").text()+"</td>"
         enx +="</tr>"
