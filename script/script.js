@@ -116,14 +116,7 @@ function carregarXML(xml) {
         $("#enx").append(enx)
         $("head").append('<script src="script/slect.js"></script>')
         if(loja == 'ERRO: CNPJ/IE'){
-          $('body').css('color', 'red')
-	  $('#rz').css({'font-family': 'Verdana', 'color':'blue' })
-	
-          $(alert(`Atenção!! Essa NF Não é do Enxuto.\nNF do ${razao}`))
-		loja =  razao
-        }
-		$("#lj").css('color', 'red')
-      })
+          
 
 } else {
     // Se a tag nfeProc não estiver presente, faça o tratamento apropriado aqui...
