@@ -58,5 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Exemplo de adição de tópicos
 	adicionarTopico("Consulta CNPJ", "hist/cnpj.html", "2024-05-09");
 	adicionarTopico("Consulta CFOP", "https://www.sefaz.pe.gov.br/Legislacao/Tributaria/Documents/Legislacao/Tabelas/CFOP.htm#Sa%C3%ADdas_Outros_Estados_5000", "2024-05-08");
-    // Adicionar mais tópicos conforme necessário
+    	adicionarTopico("Consulta CNPJ", "hist/pesq.html", "2024-05-09");
+	// Adicionar mais tópicos conforme necessário
 });
