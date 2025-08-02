@@ -59,5 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	adicionarTopico("Consulta CNPJ", "hist/cnpj.html", "2024-05-09");
 	adicionarTopico("Consulta CFOP", "https://www.sefaz.pe.gov.br/Legislacao/Tributaria/Documents/Legislacao/Tabelas/CFOP.htm#Sa%C3%ADdas_Outros_Estados_5000", "2024-05-08");
     	adicionarTopico("Pesquisar PDF", "hist/pesq.html", "2024-05-09");
+	adicionarTopico("Pesquisar PDF", "leitor/index.html", "01-08-2025");
 	// Adicionar mais tópicos conforme necessário
 });
+
