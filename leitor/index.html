@@ -12,6 +12,7 @@
       <input type="file" id="xmlFiles" multiple accept=".xml">
       <button id="btnLer">Importar XML</button>
     </section>
+
     <section class="box" id="sessao-funrural">
       <div class="titulo">FunRural</div>
       <div class="campo-funrural">
@@ -23,12 +24,17 @@
         <input type="number" id="funruralCnpj" min="0" max="100" step="0.01" value="2.05"> %
       </div>
     </section>
+
     <section class="box" id="sessao-exportar">
       <div class="titulo">Exportação</div>
-      <button id="btnExportarExcel">Exportar para Excel</button>
+      <button id="btnExportarExcel" disabled>Exportar para Excel</button>
     </section>
   </div>
+
   <div id="tableContainer"></div>
+
+  <!-- SheetJS (XLSX) para gerar .xlsx -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
