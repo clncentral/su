@@ -101,7 +101,7 @@ button:hover {
   color: #ab47bc;
   font-size: 0.97rem;
   font-weight: 600;
-  transition: border-color 0.2s;
+  transition: border-color: 0.2s;
 }
 .campo-funrural input[type="number"]:focus {
   border-color: #c2185b;
@@ -127,25 +127,24 @@ button:hover {
   overflow-x: auto;
 }
 
+/* ⬇️ AJUSTE: deixa a tabela crescer conforme o conteúdo */
 table {
-  width: auto;
+  width: max-content;           /* was: auto */
   min-width: 1100px;
   border-collapse: collapse;
   background: #fff3fc;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 1px 10px #f062929e;
-  table-layout: auto;
+  table-layout: auto;           /* importante p/ ajustar à largura do conteúdo */
 }
 
 th, td {
   padding: 6px 9px;
   text-align: left;
   font-size: 0.97rem;
-  white-space: nowrap;    /* Não quebra texto */
-  max-width: 185px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: nowrap;          /* Não quebra texto */
+  /* ⛔ removido: max-width/overflow/ellipsis p/ não cortar texto */
 }
 
 th {
@@ -174,12 +173,10 @@ tr:last-child td {
   border-bottom: none;
 }
 
-/* --- AJUSTE COLUNAS MAIS FINAS POR CAMPO --- */
-th, td {
-  min-width: 52px;
-}
+/* --- Larguras mínimas (mantém seu “grid” base), mas deixa expandir se o texto pedir --- */
+th, td { min-width: 52px; }
 
-th:nth-child(1), td:nth-child(1) { min-width: 140px; max-width: 185px; }
+th:nth-child(1), td:nth-child(1) { min-width: 140px; } /* Chave */
 th:nth-child(2), td:nth-child(2),
 th:nth-child(3), td:nth-child(3),
 th:nth-child(6), td:nth-child(6),
@@ -190,7 +187,8 @@ th:nth-child(16), td:nth-child(16),
 th:nth-child(17), td:nth-child(17),
 th:nth-child(18), td:nth-child(18),
 th:nth-child(19), td:nth-child(19),
-th:nth-child(20), td:nth-child(20) { min-width: 64px; max-width: 90px; }
+th:nth-child(20), td:nth-child(20) { min-width: 64px; }  /* sem max-width */
+
 th:nth-child(4), td:nth-child(4),
 th:nth-child(5), td:nth-child(5),
 th:nth-child(7), td:nth-child(7),
@@ -198,7 +196,7 @@ th:nth-child(8), td:nth-child(8),
 th:nth-child(9), td:nth-child(9),
 th:nth-child(10), td:nth-child(10),
 th:nth-child(11), td:nth-child(11),
-th:nth-child(12), td:nth-child(12) { min-width: 90px; max-width: 135px; }
+th:nth-child(12), td:nth-child(12) { min-width: 90px; } /* sem max-width */
 
 /* Responsivo: caixas embaixo se a tela for pequena */
 @media (max-width: 980px) {
@@ -216,4 +214,3 @@ th:nth-child(12), td:nth-child(12) { min-width: 90px; max-width: 135px; }
     min-width: 850px;
   }
 }
-
